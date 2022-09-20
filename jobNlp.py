@@ -33,19 +33,40 @@ goals:
 """
 
 import spacy
+from bs4 import BeautifulSoup
+
+# ------------------------------------------------------------------------------
+# 
+# 
+def foo():
+    """takes unified string from BeautifulSoup and returns strings to analyze
+    with NLP.
+    Splits string into 
+    """
+    pass
 
 nlp = spacy.load("en_core_web_sm")
 doc = nlp("Apple is looking at buying U.K. startup for $1 billion")
 
-for token in doc:
-    print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
-            token.shape_, token.is_alpha, token.is_stop)
+# for token in doc:
+#     print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
+#             token.shape_, token.is_alpha, token.is_stop)
 
+print()
 
-with open("jobDesc1.txt") as file:
-    for line in file:
+with open("jobDesc2.txt") as file:
+    soup = BeautifulSoup(file, 'html.parser')
+    print(soup.prettify(),"\n--- just text ---", soup.get_text())
+    # for line in file:
         # doc = nlp(line)
         # for token in doc:
         #     print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
         #             token.shape_, token.is_alpha, token.is_stop)
-        print(line)
+        # print(line)
+        # pass
+    # tempStr = "".join(soup.get_text().split())
+    tempStr = soup.get_text()
+    # tempList = soup.get_text()
+    # tempStr = tempList[-1].lstrip()
+    # tempStr.rstrip()
+    print("\n----about section:\n", tempStr.split("About the job"))

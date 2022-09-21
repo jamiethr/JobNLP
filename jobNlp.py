@@ -32,6 +32,10 @@ goals:
 
 """
 
+import json     # FIXME I don't think I'll need this later. 
+import pprint   # FIXME I don't think I'll need this later, either
+
+import re
 import spacy
 from bs4 import BeautifulSoup
 
@@ -65,8 +69,23 @@ with open("jobDesc2.txt") as file:
         # print(line)
         # pass
     # tempStr = "".join(soup.get_text().split())
-    tempStr = soup.get_text()
+    tmpStr = soup.get_text()   # create single unified string of job descr.
+    tmpList = tmpStr.split("About the job") # job description always starts with "Abou the job" header
+    
+    # FIXME
+    print("tmpList:\n", tmpList)
+    print("tmpList[-1]\n", tmpList[-1])
+
+    descrSec = tmpList[-1].split("\n")
+
+    # FIXME
+    print("pretty print of list:")
+    pprint.pprint(descrSec)
+
+    descrSec = re.split(r"(?<=(\\n))(\w|\s)*:\\n", tmpList[-1])
+    pprint.pprint(descrSec)
+
     # tempList = soup.get_text()
     # tempStr = tempList[-1].lstrip()
     # tempStr.rstrip()
-    print("\n----about section:\n", tempStr.split("About the job"))
+    # print("len of list: ", len(tempStr.split("About the job")),"\n----about section:\n", tempStr.split("About the job"))

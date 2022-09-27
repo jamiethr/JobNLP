@@ -32,6 +32,7 @@ goals:
 
 """
 
+from inspect import stack
 import json     # FIXME I don't think I'll need this later. 
 import pprint   # FIXME I don't think I'll need this later, either
 
@@ -42,12 +43,17 @@ from bs4 import BeautifulSoup
 # ------------------------------------------------------------------------------
 # 
 # 
-def foo():
-    """takes unified string from BeautifulSoup and returns strings to analyze
-    with NLP.
-    Splits string into 
+def correctStr(str):
+    """Adds escape characters to problematic characters in input string and
+    returns the corrected string.
     """
-    pass
+    res = ""
+    prob = set('"')  # problematic characters
+    for c in str:
+        if c in prob:
+            res += "\\"
+        res += c
+    return res
 
 nlp = spacy.load("en_core_web_sm")
 doc = nlp("Apple is looking at buying U.K. startup for $1 billion")
@@ -74,18 +80,63 @@ with open("jobDesc2.txt") as file:
     
     # FIXME
     print("tmpList:\n", tmpList)
-    print("tmpList[-1]\n", tmpList[-1])
+    # print("\n-----   repr: tmpList[-1]\n", repr(tmpList[-1]))
+    print("\n-----    tmpList[-1]\n", (tmpList[-1]))
+    # print("type of tmpList[-1]", type(tmpList[-1]))
 
-    descrSec = tmpList[-1].split("\n")
+    descrLines = tmpList[-1].split("\n")
 
     # FIXME
-    print("pretty print of list:")
-    pprint.pprint(descrSec)
+    print("\npretty print of list:")
+    pprint.pprint(descrLines)
 
-    descrSec = re.split(r"(?<=(\\n))(\w|\s)*:\\n", tmpList[-1])
-    pprint.pprint(descrSec)
+    print("trying to get char at end of line:", descrLines[5][-1])
 
-    # tempList = soup.get_text()
-    # tempStr = tempList[-1].lstrip()
-    # tempStr.rstrip()
-    # print("len of list: ", len(tempStr.split("About the job")),"\n----about section:\n", tempStr.split("About the job"))
+    # go through lines and split by section
+    secs = []   # [ [section title, section content], [], ... ]
+    # stk = []    # temp list for constructing sections
+    secTitle = ""
+    # for line in descrLines:
+    #     if re.search("[a-zA-Z]", line):
+    #         if line[-1] == ":":
+    #             print("\nsecTitle:", secTitle)
+    #             print("\nstck:", stk)
+    #             tmp = [secTitle, stk.copy()]
+    #             print("\ntmp:", tmp)
+
+    #             secs.append(tmp)
+    #             secTitle = line
+    #             stk.clear()
+    #             # print("stk after adding:", stk)
+
+    #             # print("\nstck AFTER:", stk)
+    #             # print("\nsecs:", secs)
+
+    #         else:
+    #             stk.append(line)
+    #         # print(line)
+    
+    resStr = ""
+    for line in descrLines:
+        if re.search("[a-zA-Z]", line):
+            if line[-1] == ":":
+                tmp = [secTitle, resStr]
+                print("\ntmp:", tmp)
+
+                secs.append(tmp)
+                secTitle = line
+                resStr = ""
+                # print("stk after adding:", stk)
+
+                # print("\nstck AFTER:", stk)
+                # print("\nsecs:", secs)
+
+            else:
+                resStr += line
+            # print(line)
+
+    print("pretty print of processing:")
+    pprint.pprint(secs)
+    print("test1:\n", correctStr(secs[-1][1]))
+    print("test2:\n", secs[-2][1])
+    print("test2:\n", repr(secs[-2][1]))

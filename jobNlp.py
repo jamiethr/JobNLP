@@ -66,62 +66,32 @@ print()
 
 with open("jobDesc2.txt") as file:
     soup = BeautifulSoup(file, 'html.parser')
-    print(soup.prettify(),"\n--- just text ---", soup.get_text())
-    # for line in file:
-        # doc = nlp(line)
-        # for token in doc:
-        #     print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
-        #             token.shape_, token.is_alpha, token.is_stop)
-        # print(line)
-        # pass
-    # tempStr = "".join(soup.get_text().split())
-    tmpStr = soup.get_text()   # create single unified string of job descr.
-    tmpList = tmpStr.split("About the job") # job description always starts with "Abou the job" header
+    # print(soup.prettify(),"\n--- just text ---", soup.get_text())     # FIXME
+    tmpStr = soup.get_text()                # create single unified string of job descr.
+    tmpList = tmpStr.split("About the job") # descript. always starts with "About the job" header
     
     # FIXME
-    print("tmpList:\n", tmpList)
-    # print("\n-----   repr: tmpList[-1]\n", repr(tmpList[-1]))
-    print("\n-----    tmpList[-1]\n", (tmpList[-1]))
-    # print("type of tmpList[-1]", type(tmpList[-1]))
+    # print("tmpList:\n", tmpList)
+    # print("\n-----    tmpList[-1]\n", (tmpList[-1]))
+    # /FIXME
 
     descrLines = tmpList[-1].split("\n")
 
     # FIXME
-    print("\npretty print of list:")
-    pprint.pprint(descrLines)
-
-    print("trying to get char at end of line:", descrLines[5][-1])
+    # print("\npretty print of list:")
+    # pprint.pprint(descrLines)
+    # print("trying to get char at end of line:", descrLines[5][-1])
+    # /FIXME
 
     # go through lines and split by section
-    secs = []   # [ [section title, section content], [], ... ]
-    # stk = []    # temp list for constructing sections
+    secs = []       # [ [section title, section content], [], ... ]
     secTitle = ""
-    # for line in descrLines:
-    #     if re.search("[a-zA-Z]", line):
-    #         if line[-1] == ":":
-    #             print("\nsecTitle:", secTitle)
-    #             print("\nstck:", stk)
-    #             tmp = [secTitle, stk.copy()]
-    #             print("\ntmp:", tmp)
-
-    #             secs.append(tmp)
-    #             secTitle = line
-    #             stk.clear()
-    #             # print("stk after adding:", stk)
-
-    #             # print("\nstck AFTER:", stk)
-    #             # print("\nsecs:", secs)
-
-    #         else:
-    #             stk.append(line)
-    #         # print(line)
-    
     resStr = ""
     for line in descrLines:
-        if re.search("[a-zA-Z]", line):
+        if re.search("[a-zA-Z]", line):     # check that line has letters in it
             if line[-1] == ":":
                 tmp = [secTitle, resStr]
-                print("\ntmp:", tmp)
+                # print("\ntmp:", tmp)      # FIXME
 
                 secs.append(tmp)
                 secTitle = line
@@ -135,8 +105,27 @@ with open("jobDesc2.txt") as file:
                 resStr += line
             # print(line)
 
-    print("pretty print of processing:")
-    pprint.pprint(secs)
-    print("test1:\n", correctStr(secs[-1][1]))
-    print("test2:\n", secs[-2][1])
-    print("test2:\n", repr(secs[-2][1]))
+    # print("pretty print of processing:")
+    # pprint.pprint(secs)
+    # print("test1:\n", correctStr(secs[-1][1]))
+    # print("test2:\n", secs[-2][1])
+    # print("test2:\n", repr(secs[-2][1]))
+
+    # try named entity recognition on the job description
+    # FIXME ?
+    print("{: >50} {: >20} {: >20} {: >20}".format("token text",
+                                                        "start char",
+                                                        "end char",
+                                                        "token label"))
+    print("-" * 150)
+    # /FIXME
+
+    for sec in secs:
+        t = sec[1]
+        doc = nlp(t)
+        for ent in doc.ents:
+            # print up to `n` characters into separate columns i.e. `{: >n}`
+            print("{: >50} {: >20} {: >20} {: >20}".format(ent.text,
+                                                        ent.start_char,
+                                                        ent.end_char,
+                                                        ent.label_))

@@ -38,6 +38,7 @@ import pprint   # FIXME I don't think I'll need this later, either
 
 import re
 import spacy
+from spacy import displacy  # FIXME I don't think I'll need this later either
 from bs4 import BeautifulSoup
 
 # ------------------------------------------------------------------------------
@@ -66,7 +67,7 @@ print()
 
 with open("jobDesc2.txt") as file:
     soup = BeautifulSoup(file, 'html.parser')
-    # print(soup.prettify(),"\n--- just text ---", soup.get_text())     # FIXME
+    print(soup.prettify(),"\n--- just text ---", soup.get_text())     # FIXME
     tmpStr = soup.get_text()                # create single unified string of job descr.
     tmpList = tmpStr.split("About the job") # descript. always starts with "About the job" header
     
@@ -113,7 +114,7 @@ with open("jobDesc2.txt") as file:
 
     # try named entity recognition on the job description
     # FIXME ?
-    print("{: >50} {: >20} {: >20} {: >20}".format("token text",
+    print("{: >50} {: >12} {: >12} {: >12}".format("token text",
                                                         "start char",
                                                         "end char",
                                                         "token label"))
@@ -125,7 +126,8 @@ with open("jobDesc2.txt") as file:
         doc = nlp(t)
         for ent in doc.ents:
             # print up to `n` characters into separate columns i.e. `{: >n}`
-            print("{: >50} {: >20} {: >20} {: >20}".format(ent.text,
+            print("{: >50} {: >12} {: >12} {: >12}".format(ent.text,
                                                         ent.start_char,
                                                         ent.end_char,
                                                         ent.label_))
+            # displacy.serve(doc)

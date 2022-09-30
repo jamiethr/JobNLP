@@ -122,8 +122,9 @@ with open("jobDesc2.txt") as file:
     # /FIXME
 
     for sec in secs:
-        t = sec[1]
-        doc = nlp(t)
+        # t = sec[1]
+        # doc = nlp(t)
+        doc = nlp(sec[1])
         for ent in doc.ents:
             # print up to `n` characters into separate columns i.e. `{: >n}`
             print("{: >50} {: >12} {: >12} {: >12}".format(ent.text,
@@ -131,3 +132,49 @@ with open("jobDesc2.txt") as file:
                                                         ent.end_char,
                                                         ent.label_))
             # displacy.serve(doc)
+    
+    # a different approach: split by sentence
+    # might want to go back and change how we store secs if this works better.
+    for sec in secs:
+        sents = sec[1].split(".")
+        for s in sents:
+            doc = nlp(s)
+            for ent in doc.ents:
+                # print up to `n` characters into separate columns i.e. `{: >n}`
+                print("{: >50} {: >12} {: >12} {: >12}".format(ent.text,
+                                                        ent.start_char,
+                                                        ent.end_char,
+                                                        ent.label_))
+    
+    # try a different pipeline I got from github haha
+    diffNlp = spacy.load("en_core_web_md")
+    # add pipeline
+    diffNlp.add_pipe("entityLinker", last=True)
+
+    for sec in secs:
+        # doc = diffNlp(sec[1])
+        # for sent in doc.sents:
+        #     # sent._.linkedEntities.pretty_print()
+        #     pass
+        # # doc._.linkedEntities.print_super_entities()
+
+        # for ent in doc._.linkedEntities:
+        #     print("ent:", ent)
+        #     superEnt = ent.get_super_entities()
+        #     for sEnt in superEnt:
+        #         d = str(sEnt.get_description())
+        #         print("{: >50}\t{: <150}".format(sEnt.get_label(), d))
+
+        sents = sec[1].split(".")
+        for s in sents:
+            if re.search("[a-zA-Z]", s) == None:
+                continue
+
+            doc = diffNlp(s)
+
+            for ent in doc._.linkedEntities:
+                print("ent:", ent)
+                superEnt = ent.get_super_entities()
+                for sEnt in superEnt:
+                    d = str(sEnt.get_description())
+                    print("{: >50}\t{: <150}".format(sEnt.get_label(), d))

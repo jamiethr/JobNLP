@@ -35,6 +35,7 @@ goals:
 from inspect import stack
 import json     # FIXME I don't think I'll need this later. 
 import pprint   # FIXME I don't think I'll need this later, either
+import string
 
 import re
 import spacy
@@ -165,16 +166,24 @@ with open("jobDesc2.txt") as file:
         #         d = str(sEnt.get_description())
         #         print("{: >50}\t{: <150}".format(sEnt.get_label(), d))
 
+        seen = set()
+
         sents = sec[1].split(".")
         for s in sents:
-            if re.search("[a-zA-Z]", s) == None:
+            if re.search("[a-zA-Z]", s) == None:    # how effecient is this? should we just do the string processing and then test if the string is valid/long enough?
                 continue
-
-            doc = diffNlp(s)
+            
+            tmp = ''.join(filter(lambda x: x in string.printable, s))
+            tmp = tmp.strip()
+            doc = diffNlp(tmp)
 
             for ent in doc._.linkedEntities:
-                print("ent:", ent)
-                superEnt = ent.get_super_entities()
-                for sEnt in superEnt:
-                    d = str(sEnt.get_description())
-                    print("{: >50}\t{: <150}".format(sEnt.get_label(), d))
+                e_name = str(ent)
+                if not (e_name in seen):
+                    seen.add(e_name)
+                    print(e_name)
+                    superEnt = ent.get_super_entities()
+                    for sEnt in superEnt:
+                        lab = str(sEnt.get_label())
+                        d = str(sEnt.get_description())
+                        print("\t\t{: >30}\t{: <150}".format(lab, d))

@@ -1,0 +1,38 @@
+<article class="jobs-description__container
+      jobs-description__container--condensed">
+    <div class="jobs-description__content jobs-description-content
+        jobs-description__content--condensed">
+      <div class="jobs-box__html-content jobs-description-content__text t-14 t-normal
+          jobs-description-content__text--stretch" id="job-details" tabindex="-1">
+          <h2 class="mt5 t-20 t-bold mb4">
+            About the job
+          </h2>
+
+<!---->
+<!---->        <span>
+                <strong><u>About The Job<br>
+<br>
+</u></strong>The Red Hat Engineering team is looking for a Software Engineer to join the Machine Configuration Operations (MCO) team. In this role, you will work as a part of a team responsible for evolving and supporting our Kubernetes native operating system management for OpenShift. The MCO team is a key component for OpenShift, operating the space between the installer and Red Hat Enterprise Linux CoreOS. Our team manages updates to systemd, cri-o and kubelet, kernel, NetworkManager, and many other components. We are at the heart of unlocking new capabilities and resolving new challenges as our product is adopted by new customer user cases. For more information, see https://github.com/openshift/machine-config-operator.<br>
+<br>
+As part of a geographically distributed team, you will collaborate with multiple Red Hat’s engineering teams and open source communities to help our customers succeed. As a Software Engineer, you’ll contribute to projects and collaborate with a team to address the challenges that emerge as we evolve within OpenShift’s industry-leading solution that will make you an essential asset to our team. Successful applicants must reside in a state where Red Hat is registered to do business.<br>
+<br>
+<strong><u>What You Will Do<br>
+</u></strong><ul><li>Collaborate cross-functionally to design, support, and debug enhancements to the Machine Configuration Operator</li><li>Work with engineers from multiple teams to continue our investment in supportable, scalable, performant, and secure architecture</li><li>Own your team’s component, measure and track its health, help colleagues and customers understand its functionality, and resolve issues that do not align with intended functionality</li><li>Receive mentorship from other engineers and provide and receive thoughtful feedback<br>
+</li></ul><strong><u>What You Will Bring<br>
+</u></strong><ul><li>Familiar with container runtime</li><li>Ability to contribute to technical architecture discussions</li><li>Ability to communicate clearly and represent your contributions and ideas while remaining open to the contributions and ideas of others</li><li>Willingness to learn more about Linux systems</li><li>Experience expressing business needs in Go Language, Python, Java, Ruby, or C</li><li>Ability to work efficiently as part of a team<br>
+</li></ul><strong><u>About Red Hat<br>
+<br>
+</u></strong>Red Hat is the world’s leading provider of enterprise open source software solutions, using a community-powered approach to deliver reliable and high-performing Linux, hybrid cloud, container, and Kubernetes technologies. Red Hat helps customers integrate new and existing IT applications, develop cloud-native applications, standardize on our industry-leading operating system, and automate, secure, and manage complex environments. Award-winning support, training, and consulting services make Red Hat a trusted adviser to the Fortune 500. As a strategic partner to cloud providers, system integrators, application vendors, customers, and open source communities, Red Hat can help organizations prepare for the digital future.<br>
+<br>
+<strong><u>Benefits<br>
+</u></strong><ul><li>Comprehensive medical, dental, and vision coverage</li><li>Flexible Spending Account - healthcare and dependent care</li><li>Health Savings Account - high deductible medical plan</li><li>Retirement 401(k) with employer match</li><li>Paid time off and holidays</li><li>Paid parental leave plans for all new parents</li><li>Leave benefits including disability, paid family medical leave, and paid military leave</li><li>Additional benefits including employee stock purchase plan, family planning reimbursement, tuition reimbursement, transportation expense account, employee assistance program, and more! <br>
+</li></ul><strong>Note</strong>: These benefits are only applicable to full time, permanent associates at Red Hat located in the United States.<br>
+<br>
+
+<!---->        </span>
+      </div>
+<!---->      <div class="jobs-description__details">
+<!---->
+      </div>
+    </div>
+  </article>
